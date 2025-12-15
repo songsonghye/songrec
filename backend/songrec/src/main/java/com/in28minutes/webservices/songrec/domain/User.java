@@ -3,38 +3,32 @@ package com.in28minutes.webservices.songrec.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "requests")
 @Builder
-@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Request {
+@Table(name = "users")
+@Getter @Setter
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private String password;
 
-    @Column(nullable = false, length = 500)
-    private String title;
+    @Column(nullable = false)
+    private String name;
 
     @Builder.Default
     @Column(nullable = false)
-    private Boolean deleted = false;
-
+    private String role = "user";
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 }
